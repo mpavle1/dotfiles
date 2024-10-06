@@ -8,6 +8,7 @@
 - [ ] Sticky function/scope name on top
 - [ ] Explore additional Telescope options
 - [ ] LazyGit
+- [ ] Folke/Trouble
 
 ### explore alternative extensions
 
