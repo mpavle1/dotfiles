@@ -5,10 +5,11 @@
 - [x] Split vim-options and keymappings
 - [ ] Cleanup lualine
 - [x] Explore LazyNvim & NVChad default configs
-- [ ] Sticky function/scope name on top
+- [x] Sticky function/scope name on top
 - [ ] Explore additional Telescope options
 - [ ] LazyGit
 - [ ] Folke/Trouble
+- [ ] Look into more motions
 
 ### explore alternative extensions
 
