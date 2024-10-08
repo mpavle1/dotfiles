@@ -10,6 +10,7 @@
 - [ ] LazyGit
 - [ ] Folke/Trouble
 - [ ] Look into more motions
+- [ ] Update commenting for jsx files
 
 ### explore alternative extensions
 
