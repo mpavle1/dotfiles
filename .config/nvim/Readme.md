@@ -2,15 +2,14 @@
 
 - [ ] Autocomplete
 - [ ] Cleanup code
-- [x] Split vim-options and keymappings
 - [ ] Cleanup lualine
-- [x] Explore LazyNvim & NVChad default configs
-- [x] Sticky function/scope name on top
 - [ ] Explore additional Telescope options
 - [ ] LazyGit
 - [ ] Folke/Trouble
 - [ ] Look into more motions
 - [ ] Update commenting for jsx files
+- [ ] Add gitsigns plugin
+- [ ] Add ts-comments.nvim plugin
 
 ### explore alternative extensions
 
