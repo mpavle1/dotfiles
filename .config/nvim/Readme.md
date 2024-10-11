@@ -10,6 +10,7 @@
 - [ ] Update commenting for jsx files
 - [ ] Add gitsigns plugin
 - [ ] Add ts-comments.nvim plugin
+- [ ] Rewrite LSP config
 
 ### explore alternative extensions
 
