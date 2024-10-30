@@ -8,6 +8,7 @@ vim.opt.swapfile = false
 vim.opt.wrap = false
 vim.opt.smartindent = true
 vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 10
 vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 50
 
@@ -27,3 +28,6 @@ vim.g.maplocalleader = "\\"
 
 vim.wo.number = true
 vim.wo.relativenumber = true
+
+vim.opt.list = true
+vim.opt.listchars = { tab = ">-", trail = "·", lead = "·" }
