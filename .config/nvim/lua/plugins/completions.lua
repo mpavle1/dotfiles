@@ -3,7 +3,6 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 	},
 	{
-		-- adds function arg help while typing out functions!!!
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
 	{
@@ -16,11 +15,11 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
+			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 
 			-- Set up nvim-cmp.
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			require("luasnip.loaders.from_vscode").lazy_load()
 
