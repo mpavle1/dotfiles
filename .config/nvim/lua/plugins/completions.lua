@@ -23,6 +23,8 @@ return {
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			require("luasnip.loaders.from_vscode").lazy_load()
 
+			local has_copilot, copilot_suggestion = pcall(require, "copilot.suggestion")
+
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 			cmp.setup({
@@ -44,20 +46,8 @@ return {
 					["<C-Space>"] = cmp.mapping.complete(),
 
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
+						if has_copilot and copilot_suggestion.is_visible() then
+							copilot_suggestion.accept()
 						else
 							fallback()
 						end

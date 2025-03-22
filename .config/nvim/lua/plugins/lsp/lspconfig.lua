@@ -11,8 +11,6 @@ return {
 
 		local mason_lspconfig = require("mason-lspconfig")
 
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 		local keymap = vim.keymap -- for conciseness
 
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -25,6 +23,9 @@ return {
 				-- set keybinds
 				opts.desc = "Show LSP references"
 				keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+				opts.desc = "Rename variable"
+				keymap.set("n", "gR", vim.lsp.buf.rename, opts) -- show definition, references
 
 				opts.desc = "Go to declaration"
 				keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
@@ -53,7 +54,7 @@ return {
 		})
 
 		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
@@ -63,7 +64,6 @@ return {
 				})
 			end,
 			["emmet_ls"] = function()
-				-- configure emmet language server
 				lspconfig["emmet_ls"].setup({
 					capabilities = capabilities,
 					filetypes = {
@@ -78,12 +78,10 @@ return {
 				})
 			end,
 			["lua_ls"] = function()
-				-- configure lua server (with special settings)
 				lspconfig["lua_ls"].setup({
 					capabilities = capabilities,
 					settings = {
 						Lua = {
-							-- make the language server recognize "vim" global
 							diagnostics = {
 								globals = { "vim" },
 							},

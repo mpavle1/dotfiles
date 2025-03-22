@@ -10,6 +10,8 @@ vim.opt.smartindent = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 vim.opt.signcolumn = "yes"
+vim.opt.foldcolumn = "1"
+
 vim.opt.updatetime = 50
 
 vim.opt.cursorline = true
@@ -18,6 +20,7 @@ vim.opt.spelllang = { "en" }
 vim.opt.termguicolors = true
 vim.opt.smoothscroll = true
 
+-- Highlight Search term
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 

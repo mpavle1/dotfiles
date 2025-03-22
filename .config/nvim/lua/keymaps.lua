@@ -64,10 +64,4 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Smart yoink" })
 
 vim.keymap.set({ "n", "v" }, "<leader>ev", "<cmd>:Vex!<CR>", { desc = "Open explorer in vertical split to the right" })
 vim.keymap.set({ "n", "v" }, "<leader>eh", "<cmd>:Hex<CR>", { desc = "Open explorer in horizontal split to the down" })
-
--- LSP keymaps
--- vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show Hover" })
--- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition", silent = true, noremap = true })
--- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration", silent = true, noremap = true })
--- vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to References", silent = true, noremap = true })
--- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action", silent = true, noremap = true })
+vim.keymap.set({ "n", "v" }, "<leader>ef", "<cmd>:Ex<CR>", { desc = "Open explorer" })
