@@ -35,6 +35,7 @@ set spelllang=en
 " Color and terminal settings
 set termguicolors
 set smoothscroll
+colorscheme koehler
 
 " Search settings
 set nohlsearch
