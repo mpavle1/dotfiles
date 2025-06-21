@@ -16,12 +16,11 @@ return {
 		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
-			local luasnip = require("luasnip")
 
 			-- Set up nvim-cmp.
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
-			require("luasnip.loaders.from_vscode").lazy_load()
+			-- require("luasnip.loaders.from_vscode").lazy_load()
 
 			local has_copilot, copilot_suggestion = pcall(require, "copilot.suggestion")
 
@@ -55,7 +54,7 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "luasnip" }, -- For luasnip users.
+					-- { name = "luasnip" }, -- For luasnip users.
 					{ name = "nvim_lsp_signature_help" }, -- function arg popups while typing
 				}, {
 					{ name = "buffer" },

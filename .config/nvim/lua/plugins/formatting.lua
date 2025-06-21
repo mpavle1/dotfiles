@@ -19,6 +19,11 @@ return {
 				php = {},
 			},
 			format_on_save = function(bufnr)
+				-- Disable formatting on save for php files
+				if vim.bo[bufnr].filetype == "php" then
+					return false
+				end
+
 				return {
 					lsp_fallback = true,
 					async = false,

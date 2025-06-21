@@ -49,16 +49,21 @@ return {
 					cwd_only = true,
 					path_display = { "truncate" },
 				},
+				lsp_references = {
+					-- TODO: Videti da li ovo treba
+					show_line = false,
+				},
 			},
 			extension = {
 				fzf = {},
 				live_grep_args = {
-					theme = "ivy", -- Ovo ne radi
+					auto_quoting = true,
 					path_display = {
 						filename_first = {
 							reverse_directories = true,
 						},
 					},
+					show_line = false,
 					vimgrep_arguments = {
 						"rg",
 						"--color=never",
@@ -74,9 +79,19 @@ return {
 
 		telescope.load_extension("fzf")
 
+		local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope find recent files" })
-		vim.keymap.set("n", "<leader>fg", builtin.git_status, { desc = "Telescope live git files" })
+		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope live git files" })
+		vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Telescope live git files" })
+		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix files" })
+		vim.keymap.set(
+			"n",
+			"<leader>fw",
+			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+			{ desc = "Telescope workspace symbols" }
+		)
 		vim.keymap.set(
 			"n",
 			"<leader>f/",
@@ -86,22 +101,8 @@ return {
 		vim.keymap.set(
 			"n",
 			"<leader>fs",
-			"<cmd>lua require('telescope').extensions.live_grep_args.grep_word_under_cursor()<CR>",
+			live_grep_args_shortcuts.grep_word_under_cursor,
 			{ desc = "Telescope live grep under cursor" }
 		)
-		-- vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-		-- vim.keymap.set("n", "<leader>fc", function()
-		-- 	builtin.live_grep({
-		-- 		glob_pattern = "!{spec,test}",
-		-- 	})
-		-- end, { desc = "Live Grep Code" })
-		vim.keymap.set("n", "<leader>fc", function()
-			builtin.grep_string({
-				path_display = { "smart" },
-				only_sort_text = true,
-				word_match = "-w",
-				search = "",
-			})
-		end, { desc = "Live Grep String" })
 	end,
 }

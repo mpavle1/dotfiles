@@ -6,11 +6,12 @@ return {
 		priority = 1000,
 		config = function()
 			require("kanagawa").setup({
-				transparent = true,
 				theme = "wave",
 			})
 
 			vim.cmd("colorscheme kanagawa")
+
+			vim.cmd("highlight Normal guibg=black")
 		end,
 	},
 }
