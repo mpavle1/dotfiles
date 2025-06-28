@@ -1,16 +1,10 @@
-## Todo
+## Linux
 
-- [ ] Autocomplete
-- [ ] Cleanup code
-- [ ] Cleanup lualine
-- [ ] Explore additional Telescope options
-- [ ] LazyGit
-- [ ] Folke/Trouble
-- [ ] Look into more motions
-- [ ] Add gitsigns plugin
-- [ ] Add ts-comments.nvim plugin
-- [ ] Rewrite LSP config
+```bash
+sudo apt install ripgrep
+```
+## Macos
 
-### explore alternative extensions
-
-- [ ] Oil
+```bash
+brew install ripgrep
+```
