@@ -5,6 +5,13 @@ return {
 		local conform = require("conform")
 
 		conform.setup({
+			formatters = {
+				eslint_d = {
+					command = "eslint_d",
+					args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
+					stdin = true,
+				},
+			},
 			formatters_by_ft = {
 				javascript = { "prettier" },
 				typescript = { "prettier" },

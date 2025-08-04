@@ -104,5 +104,6 @@ return {
 			live_grep_args_shortcuts.grep_word_under_cursor,
 			{ desc = "Telescope live grep under cursor" }
 		)
+		vim.keymap.set("n", "<leader>fp", "<cmd>Telescope resume<cr>", { desc = "Telescope resume last search" })
 	end,
 }

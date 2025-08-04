@@ -16,40 +16,40 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
-				-- Buffer local mappings.
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf, silent = true }
 
-				-- set keybinds
-				opts.desc = "Show LSP references"
-				keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
+				-- LSP remaps for default keybindings
 				opts.desc = "Rename variable"
-				keymap.set("n", "gR", vim.lsp.buf.rename, opts) -- show definition, references
+				keymap.set("n", "gR", vim.lsp.buf.rename, opts)
 
 				opts.desc = "Go to declaration"
-				keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
-				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
-
-				opts.desc = "Show LSP implementations"
-				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
-
-				opts.desc = "Show LSP type definitions"
-				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+				keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 
 				opts.desc = "See available code actions"
-				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
 				opts.desc = "Smart rename"
-				keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts) -- smart rename
+				keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
+
+				-- opts.desc = "Show documentation for what is under cursor"
+				-- keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+				-- LSP remaps for telescope
+
+				opts.desc = "Show LSP references"
+				keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+
+				opts.desc = "Show LSP definitions"
+				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+
+				opts.desc = "Show LSP implementations"
+				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+
+				opts.desc = "Show LSP type definitions"
+				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
 				opts.desc = "Show buffer diagnostics"
-				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
-				opts.desc = "Show documentation for what is under cursor"
-				keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 			end,
 		})
 
