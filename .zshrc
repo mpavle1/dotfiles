@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll="ls -la"
+alias ll="ls -lha"
 alias tmux="tmux -u"
 
 # Paths to projects go here. Uncomment the follwoing lines
