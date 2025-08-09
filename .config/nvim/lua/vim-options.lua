@@ -47,3 +47,5 @@ vim.g.netrw_altv = 0
 
 vim.o.splitright = true -- Vertical splits go to the right
 vim.o.splitbelow = true -- Horizontal splits go down
+
+vim.o.winborder = "rounded"
