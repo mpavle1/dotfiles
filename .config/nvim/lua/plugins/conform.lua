@@ -5,18 +5,18 @@ return {
 		local conform = require("conform")
 
 		conform.setup({
-			formatters = {
-				eslint_d = {
-					command = "eslint_d",
-					args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
-					stdin = true,
-				},
-			},
+			-- formatters = {
+			-- 	eslint_d = {
+			-- 		command = "eslint_d",
+			-- 		args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
+			-- 		stdin = true,
+			-- 	},
+			-- },
 			formatters_by_ft = {
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
+				javascript = { "eslint_d", "prettier" },
+				typescript = { "eslint_d", "prettier" },
+				javascriptreact = { "eslint_d", "prettier" },
+				typescriptreact = { "eslint_d", "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
@@ -28,7 +28,7 @@ return {
 			format_on_save = function(bufnr)
 				-- Disable formatting on save for php files
 				if vim.bo[bufnr].filetype == "php" then
-					return false
+					return nil
 				end
 
 				return {

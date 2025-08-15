@@ -18,7 +18,6 @@ return {
 			callback = function(ev)
 				local opts = { buffer = ev.buf, silent = true }
 
-				-- LSP remaps for default keybindings
 				opts.desc = "Rename variable"
 				keymap.set("n", "gR", vim.lsp.buf.rename, opts)
 
@@ -31,8 +30,12 @@ return {
 				opts.desc = "Smart rename"
 				keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 
-				-- opts.desc = "Show documentation for what is under cursor"
-				-- keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+				opts.desc = "Show documentation for what is under cursor"
+				keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+				-- Helps finish the function by giving signature info
+				opts.desc = "Helps finish the function"
+				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
 				-- LSP remaps for telescope
 

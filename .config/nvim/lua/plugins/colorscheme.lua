@@ -14,5 +14,4 @@ return {
 			vim.cmd("highlight Normal guibg=black")
 		end,
 	},
-	{ "projekt0n/github-nvim-theme", name = "github-theme" },
 }

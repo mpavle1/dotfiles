@@ -15,8 +15,6 @@ return {
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
 
-		require("telescope").load_extension("live_grep_args")
-
 		telescope.setup({
 			defaults = {
 				path_display = {
@@ -24,7 +22,7 @@ return {
 						reverse_directories = true,
 					},
 				},
-				vimgrep_arugments = {
+				vimgrep_arguments = {
 					"--color=never",
 					"--no-heading",
 					"--hidden",
@@ -33,18 +31,16 @@ return {
 					"--trim",
 				},
 				file_ignore_patterns = {
-					"public/.*%.js",
+					"public/.*%.js, node_modules/.*, dist/.*%.js",
 				},
 			},
 			pickers = {
 				oldfiles = {
-					theme = "ivy",
-					hidden = "true",
+					hidden = true,
 					cwd_only = true,
 					path_display = { "truncate" },
 				},
 				find_files = {
-					theme = "ivy",
 					hidden = "true",
 					cwd_only = true,
 					path_display = { "truncate" },
@@ -54,7 +50,7 @@ return {
 					show_line = false,
 				},
 			},
-			extension = {
+			extensions = {
 				fzf = {},
 				live_grep_args = {
 					auto_quoting = true,
@@ -78,6 +74,7 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+		telescope.load_extension("live_grep_args")
 
 		local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 
@@ -85,18 +82,14 @@ return {
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope find recent files" })
 		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope live git files" })
 		vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Telescope live git files" })
-		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix files" })
-		vim.keymap.set(
-			"n",
-			"<leader>fw",
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			{ desc = "Telescope workspace symbols" }
-		)
+		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix files" }) -- check if needed
+		vim.keymap.set("n", "<leader>fp", builtin.resume, { desc = "Telescope resume last search" })
+		vim.keymap.set("n", "<leader>fw", builtin.lsp_document_symbols, { desc = "Telescope document symbols" })
 		vim.keymap.set(
 			"n",
 			"<leader>f/",
 			"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-			{ desc = "Live Grep" }
+			{ desc = "Telescope live grep args" }
 		)
 		vim.keymap.set(
 			"n",
@@ -104,6 +97,20 @@ return {
 			live_grep_args_shortcuts.grep_word_under_cursor,
 			{ desc = "Telescope live grep under cursor" }
 		)
-		vim.keymap.set("n", "<leader>fp", "<cmd>Telescope resume<cr>", { desc = "Telescope resume last search" })
+
+		-- Not working
+		vim.keymap.set("n", "<leader>ps", function()
+			builtin.grep_string({ search = vim.fn.input("Grep > ") })
+		end, { desc = "Telescope grep string" })
+
+		vim.keymap.set("n", "<leader>ws", function()
+			local word = vim.fn.expand("<cword>")
+			builtin.grep_string({ search = word })
+		end, { desc = "Telescope grep word under cursor" })
+
+		vim.keymap.set("n", "<leader>Ws", function()
+			local word = vim.fn.expand("<cWORD>")
+			builtin.grep_string({ search = word })
+		end, { desc = "Telescope grep WORD under cursor" })
 	end,
 }

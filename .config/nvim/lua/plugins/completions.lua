@@ -17,10 +17,8 @@ return {
 		config = function()
 			local cmp = require("cmp")
 
-			-- Set up nvim-cmp.
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
-			-- require("luasnip.loaders.from_vscode").lazy_load()
 
 			local has_copilot, copilot_suggestion = pcall(require, "copilot.suggestion")
 
@@ -29,7 +27,6 @@ return {
 			cmp.setup({
 				preselect = cmp.PreselectMode.None,
 				snippet = {
-					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
 					end,

@@ -1,3 +1,4 @@
+-- Git blame for one line and for accessing blame information (Commit sha, commit url etc.)
 return {
 	"f-person/git-blame.nvim",
 	event = "VeryLazy",

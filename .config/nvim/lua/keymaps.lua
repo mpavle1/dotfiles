@@ -1,16 +1,9 @@
--- TODO: CHeck if needed since i dont use panes that much
--- Navigate between panes
--- vim.api.nvim_set_keymap("n", "<C-h>", ":wincmd h<CR>", { silent = true })
--- vim.api.nvim_set_keymap("n", "<C-j>", ":wincmd j<CR>", { silent = true })
--- vim.api.nvim_set_keymap("n", "<C-k>", ":wincmd k<CR>", { silent = true })
--- vim.api.nvim_set_keymap("n", "<C-l>", ":wincmd l<CR>", { silent = true })
---
 -- Display diagnostics for line
 vim.api.nvim_set_keymap("n", "<leader>cd", ":lua vim.diagnostic.open_float()<CR>", { desc = "Line Diagnostics" })
 
 -- Navigate through diagnostics
-vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev Diagnostic" })
+vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 
 -- Navigate through error diagnostics
 vim.api.nvim_set_keymap(
@@ -40,14 +33,12 @@ vim.api.nvim_set_keymap(
 	{ desc = "Prev Warning" }
 )
 
--- TODO: Check if needed, since 0.11.0 includes this by default
--- Navigate through quickfix items
-vim.api.nvim_set_keymap("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix item" })
-vim.api.nvim_set_keymap("n", "[q", "<cmd>cprev<CR>", { desc = "Prev quickfix item" })
-
 -- Shift visual selected line
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+
+-- Replace word under cursor in buffer
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Better indenting
 vim.api.nvim_set_keymap("v", "<", "<gv", { silent = true })
@@ -64,15 +55,11 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- Paste does not change the current buffer
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Smart paste" })
 
--- Yoink to clipboard (this may need to change for macOS and Windos)
+-- Yoink to clipboard (this may need to change for Windos)
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Smart yoink" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Smart yoink" })
 
--- TODO: Not needed since i use oil.nvim
--- vim.keymap.set({ "n", "v" }, "<leader>ev", "<cmd>:Vex!<CR>", { desc = "Open explorer in vertical split to the right" })
--- vim.keymap.set({ "n", "v" }, "<leader>eh", "<cmd>:Hex<CR>", { desc = "Open explorer in horizontal split to the down" })
--- vim.keymap.set({ "n", "v" }, "<leader>ef", "<cmd>:Ex<CR>", { desc = "Open explorer" })
-
+-- Toggle Quickfix List
 vim.keymap.set("n", "<leader>q", function()
 	local is_open = false
 	for _, win in ipairs(vim.fn.getwininfo()) do
@@ -87,8 +74,6 @@ vim.keymap.set("n", "<leader>q", function()
 		vim.cmd("copen")
 	end
 end, { desc = "Toggle Quickfix List" })
-
-local custom_group = vim.api.nvim_create_augroup("custom", { clear = true })
 
 -- Remove items from quickfix list.
 -- `dd` to delete in Normal
@@ -135,7 +120,7 @@ local function delete_qf_items()
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-	group = custom_group,
+	group = vim.api.nvim_create_augroup("custom", { clear = true }),
 	pattern = "qf",
 	callback = function()
 		-- Do not show quickfix in buffer lists.
@@ -144,7 +129,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		-- Escape closes quickfix window.
 		vim.keymap.set("n", "<ESC>", "<CMD>cclose<CR>", { buffer = true, remap = false, silent = true })
 
-		-- `dd` deletes an item from the list.
 		vim.keymap.set("n", "dd", delete_qf_items, { buffer = true })
 		vim.keymap.set("x", "d", delete_qf_items, { buffer = true })
 	end,
