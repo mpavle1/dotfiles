@@ -31,9 +31,8 @@ return {
 				keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 
 				opts.desc = "Show documentation for what is under cursor"
-				keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+				keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-				-- Helps finish the function by giving signature info
 				opts.desc = "Helps finish the function"
 				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
