@@ -17,6 +17,11 @@ return {
 
 		telescope.setup({
 			defaults = {
+				file_ignore_patterns = {
+					"node_modules/.*",
+					"dist/.*",
+					"public/.*%.js",
+				},
 				path_display = {
 					filename_first = {
 						reverse_directories = true,
@@ -29,9 +34,6 @@ return {
 					"--with-filename",
 					"--smart-case",
 					"--trim",
-				},
-				file_ignore_patterns = {
-					"public/.*%.js, node_modules/.*, dist/.*%.js",
 				},
 			},
 			pickers = {
