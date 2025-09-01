@@ -36,15 +36,15 @@ vim.opt.signcolumn = "yes"
 vim.opt.foldcolumn = "1"
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "120"
-vim.opt.winborder = "single"
+vim.opt.winborder = "single" -- only in Neovim
 
 -- Split windows
 vim.o.splitright = true
 vim.o.splitbelow = true
 
 -- Spell checking
-vim.opt.spell = true
-vim.opt.spelllang = { "en" }
+-- vim.opt.spell = true
+-- vim.opt.spelllang = { "en" }
 
 -- Netrw settings
 vim.g.netrw_browse_split = 0

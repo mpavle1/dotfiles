@@ -57,3 +57,22 @@ let g:netrw_browse_split = 0
 let g:netrw_banner = 0
 let g:netrw_altv = 0
 
+" Better indenting (reselect the visual block after shifting)
+vnoremap < <gv
+vnoremap > >gv
+
+" Line jump stays in the middle of the screen
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" Search term stays in the middle and open folds
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Yoink (yank) to system clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Open netrw (:Ex) with <leader>-
+nnoremap <leader>- :Ex<CR>
