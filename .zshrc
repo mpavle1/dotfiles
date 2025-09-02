@@ -1,5 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 
+source $ZSH/oh-my-zsh.sh
+
 ZSH_THEME="robbyrussell"
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
@@ -9,6 +11,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+export MANPAGER="nvim +Man!"
 
 alias ll="ls -lha"
 alias tmux="tmux -u"
@@ -19,4 +22,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export LC_ALL=en_GB.UTF-8 
 export LANG=en_GB.UTF-8
 
-source $ZSH/oh-my-zsh.sh
+[ -f ~/.zsh_paths ] && source ~/.zsh_paths
+
