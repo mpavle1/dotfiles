@@ -28,10 +28,13 @@ return {
 					},
 				},
 				vimgrep_arguments = {
+					"rg",
 					"--color=never",
 					"--no-heading",
 					"--hidden",
 					"--with-filename",
+					"--line-number",
+					"--column",
 					"--smart-case",
 					"--trim",
 				},
@@ -43,7 +46,7 @@ return {
 					path_display = { "truncate" },
 				},
 				find_files = {
-					hidden = "true",
+					hidden = true,
 					cwd_only = true,
 					path_display = { "truncate" },
 				},
@@ -66,10 +69,12 @@ return {
 						"rg",
 						"--color=never",
 						"--no-heading",
+						"--hidden",
 						"--with-filename",
 						"--line-number",
 						"--column",
 						"--smart-case",
+						"--trim",
 					},
 				},
 			},
@@ -82,9 +87,9 @@ return {
 
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope find recent files" })
-		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope live git files" }) -- check if needed
-		vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Telescope live git files" })
-		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix files" }) -- check if needed
+		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope live git files" })
+		vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Telescope live git diff files" })
+		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix files" })
 		vim.keymap.set("n", "<leader>fp", builtin.resume, { desc = "Telescope resume last search" })
 		vim.keymap.set("n", "<leader>fw", builtin.lsp_document_symbols, { desc = "Telescope document symbols" })
 		vim.keymap.set(
@@ -100,18 +105,15 @@ return {
 			{ desc = "Telescope live grep under cursor" }
 		)
 
-		-- Not working
 		vim.keymap.set("n", "<leader>ps", function()
 			builtin.grep_string({ search = vim.fn.input("Grep > ") })
 		end, { desc = "Telescope grep string" })
 
-		-- Not working
 		vim.keymap.set("n", "<leader>ws", function()
 			local word = vim.fn.expand("<cword>")
 			builtin.grep_string({ search = word })
 		end, { desc = "Telescope grep word under cursor" })
 
-		-- Not working
 		vim.keymap.set("n", "<leader>Ws", function()
 			local word = vim.fn.expand("<cWORD>")
 			builtin.grep_string({ search = word })
