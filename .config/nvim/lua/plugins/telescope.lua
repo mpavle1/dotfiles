@@ -5,9 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		{
 			"nvim-telescope/telescope-live-grep-args.nvim",
-			-- This will not install any breaking changes.
-			-- For major updates, this must be adjusted manually.
-			version = "^1.0.0",
+			version = "^1.1.0",
 		},
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
@@ -59,6 +57,15 @@ return {
 				fzf = {},
 				live_grep_args = {
 					auto_quoting = true,
+					mappings = { -- extend mappings
+						i = {
+							["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({
+								postfix = " -FS --iglob **",
+							}),
+							-- freeze the current list and start a fuzzy search in the frozen list
+							-- ["<C-space>"] = lga_actions.to_fuzzy_refine,
+						},
+					},
 					path_display = {
 						filename_first = {
 							reverse_directories = true,
@@ -83,8 +90,6 @@ return {
 		telescope.load_extension("fzf")
 		telescope.load_extension("live_grep_args")
 
-		local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
-
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope find recent files" })
 		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope live git files" })
@@ -101,22 +106,8 @@ return {
 		vim.keymap.set(
 			"n",
 			"<leader>fs",
-			live_grep_args_shortcuts.grep_word_under_cursor,
+			"<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor({postfix = ' -FS --iglob **'})<CR>",
 			{ desc = "Telescope live grep under cursor" }
 		)
-
-		vim.keymap.set("n", "<leader>ps", function()
-			builtin.grep_string({ search = vim.fn.input("Grep > ") })
-		end, { desc = "Telescope grep string" })
-
-		vim.keymap.set("n", "<leader>ws", function()
-			local word = vim.fn.expand("<cword>")
-			builtin.grep_string({ search = word })
-		end, { desc = "Telescope grep word under cursor" })
-
-		vim.keymap.set("n", "<leader>Ws", function()
-			local word = vim.fn.expand("<cWORD>")
-			builtin.grep_string({ search = word })
-		end, { desc = "Telescope grep WORD under cursor" })
 	end,
 }

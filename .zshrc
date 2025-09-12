@@ -11,6 +11,9 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+[ -z "$TMUX" ] && export TERM=xterm-256color
+
 export MANPAGER="nvim +Man!"
 
 alias ll="ls -lha"
