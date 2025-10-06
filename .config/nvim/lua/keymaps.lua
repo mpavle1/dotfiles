@@ -50,10 +50,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- Paste does not change the current buffer
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Smart paste" })
-
--- Yoink to clipboard (this may need to change for Windos)
+-- Yoink to clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Smart yoink" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Smart yoink" })
 
@@ -97,12 +94,12 @@ local function delete_qf_items()
 		-- Go back to normal
 		vim.api.nvim_feedkeys(
 			vim.api.nvim_replace_termcodes(
-				"<esc>", -- what to escape
+				"<esc>",
 				true, -- Vim leftovers
 				false, -- Also replace `<lt>`?
 				true -- Replace keycodes (like `<esc>`)?
 			),
-			"x", -- Mode flag
+			"x",
 			false -- Should be false, since we already `nvim_replace_termcodes()`
 		)
 	end
@@ -117,6 +114,7 @@ local function delete_qf_items()
 	vim.fn.cursor(start_idx, 1)
 end
 
+-- Quickfix delete mappings and tweaks
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("custom", { clear = true }),
 	pattern = "qf",

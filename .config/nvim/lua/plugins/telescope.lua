@@ -15,16 +15,19 @@ return {
 
 		telescope.setup({
 			defaults = {
+				layout_config = {
+					height = 100,
+					width = 400,
+				},
+				layout_strategy = "horizontal",
+				dynamic_preview_title = true,
 				file_ignore_patterns = {
 					"node_modules/.*",
 					"dist/.*",
 					"public/.*%.js",
+					-- ".next/.*%.js",
 				},
-				path_display = {
-					filename_first = {
-						reverse_directories = true,
-					},
-				},
+				path_display = { filename_first = { reverse_directories = true } },
 				vimgrep_arguments = {
 					"rg",
 					"--color=never",
@@ -35,6 +38,8 @@ return {
 					"--column",
 					"--smart-case",
 					"--trim",
+					"--glob",
+					"!**/.git/**",
 				},
 			},
 			pickers = {
@@ -49,16 +54,16 @@ return {
 					path_display = { "truncate" },
 				},
 				lsp_references = {
-					-- TODO: Videti da li ovo treba
 					show_line = false,
 				},
 			},
 			extensions = {
 				fzf = {},
 				live_grep_args = {
-					auto_quoting = true,
-					mappings = { -- extend mappings
+					auto_quoting = false,
+					mappings = {
 						i = {
+							["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
 							["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({
 								postfix = " -FS --iglob **",
 							}),
@@ -82,6 +87,8 @@ return {
 						"--column",
 						"--smart-case",
 						"--trim",
+						"--glob",
+						"!**/.git/**",
 					},
 				},
 			},
@@ -106,8 +113,14 @@ return {
 		vim.keymap.set(
 			"n",
 			"<leader>fs",
-			"<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor({postfix = ' -FS --iglob **'})<CR>",
+			"<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()<CR>",
 			{ desc = "Telescope live grep under cursor" }
+		)
+		vim.keymap.set(
+			"v",
+			"<leader>fs",
+			"<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
+			{ desc = "Telescope live grep visual selection" }
 		)
 	end,
 }
