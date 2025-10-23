@@ -7,11 +7,7 @@ return {
 		{ "folke/lazydev.nvim", ft = "lua" },
 	},
 	config = function()
-		local lspconfig = require("lspconfig")
-
 		local mason_lspconfig = require("mason-lspconfig")
-
-		local keymap = vim.keymap -- for conciseness
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -19,62 +15,45 @@ return {
 				local opts = { buffer = ev.buf, silent = true }
 
 				opts.desc = "See available code actions"
-				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
 				opts.desc = "Smart rename"
-				keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
+				vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 
 				opts.desc = "Show documentation for what is under cursor"
-				keymap.set("n", "K", vim.lsp.buf.hover, opts)
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
 				opts.desc = "Helps finish the function"
 				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
-				-- LSP remaps for telescope
-
 				opts.desc = "Show LSP references"
-				keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 
 				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
 				-- opts.desc = "Show LSP implementations"
 				-- keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
 				opts.desc = "Show LSP type definitions"
-				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
 				opts.desc = "Show buffer diagnostics"
-				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+				vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 			end,
 		})
 
-		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
 			function(server_name)
-				lspconfig[server_name].setup({
+				vim.lsp.config(server_name, {
 					capabilities = capabilities,
 				})
-			end,
-			["emmet_ls"] = function()
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-					},
-				})
+				vim.lsp.enable(server_name)
 			end,
 			["lua_ls"] = function()
-				lspconfig["lua_ls"].setup({
+				vim.lsp.config("lua_ls", {
 					capabilities = capabilities,
 					settings = {
 						Lua = {
@@ -87,6 +66,7 @@ return {
 						},
 					},
 				})
+				vim.lsp.enable("lua_ls")
 			end,
 		})
 	end,

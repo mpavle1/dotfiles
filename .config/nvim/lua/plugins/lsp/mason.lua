@@ -25,7 +25,6 @@ return {
 				"html",
 				"cssls",
 				"lua_ls",
-				"emmet_ls",
 			},
 		})
 
