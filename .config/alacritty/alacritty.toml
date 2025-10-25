@@ -1,27 +1,38 @@
 # --- Colors / Theme ---
-[colors.primary]
-background = "0x000000"
-foreground = "0xd3d7cf"
-
-[colors.normal]
-black   = "0x000000"
-red     = "0xcc0000"
-green   = "0x4e9a06"
-yellow  = "0xc4a000"
-blue    = "0x3465a4"
-magenta = "0x75507b"
-cyan    = "0x06989a"
-white   = "0xd3d7cf"
+[window]
+startup_mode = 'Maximized'
 
 [colors.bright]
-black   = "0x555753"
-red     = "0xef2929"
-green   = "0x8ae234"
-yellow  = "0xfce94f"
-blue    = "0x729fcf"
-magenta = "0xad7fa8"
-cyan    = "0x34e2e2"
-white   = "0xeeeeec"
+black = '#686868'
+blue = '#6871ff'
+cyan = '#60fdff'
+green = '#5ffa68'
+magenta = '#ff77ff'
+red = '#ff6e67'
+white = '#ffffff'
+yellow = '#fffc67'
+
+[colors.cursor]
+cursor = '#c7c7c7'
+text = '#8c8c8c'
+
+[colors.normal]
+black = '#000000'
+blue = '#0225c7'
+cyan = '#00c5c7'
+green = '#00c200'
+magenta = '#ca30c7'
+red = '#c91b00'
+white = '#c7c7c7'
+yellow = '#c7c400'
+
+[colors.primary]
+background = '#000000'
+foreground = '#c7c7c7'
+
+[colors.selection]
+background = '#c1deff'
+text = '#000000'
 
 # --- Font Settings ---
 [font.normal]
