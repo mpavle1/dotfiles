@@ -14,54 +14,62 @@ return {
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
 
+		local layout_config = {
+			height = 100,
+			width = 400,
+		}
+		local file_ignore_patterns = {
+			"node_modules/.*",
+			"dist/.*",
+			"public/.*%.js",
+			-- ".next/.*%.js",
+		}
+
+		local vimgrep_arguments = {
+			"rg",
+			"--ignore",
+			"--hidden",
+			"-g",
+			"!.git",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--trim",
+		}
+
+		local rg_find_files = {
+			"rg",
+			"--ignore",
+			"--hidden",
+			"-g",
+			"!.git",
+			"--files",
+		}
+
 		telescope.setup({
 			defaults = {
-				layout_config = {
-					height = 100,
-					width = 400,
-				},
+				cwd_only = true,
+				layout_config = layout_config,
 				layout_strategy = "horizontal",
 				dynamic_preview_title = true,
-				file_ignore_patterns = {
-					"node_modules/.*",
-					"dist/.*",
-					"public/.*%.js",
-					-- ".next/.*%.js",
-				},
-				path_display = { filename_first = { reverse_directories = true } },
-				vimgrep_arguments = {
-					"rg",
-					"--color=never",
-					"--no-heading",
-					"--hidden",
-					"--with-filename",
-					"--line-number",
-					"--column",
-					"--smart-case",
-					"--trim",
-					"--glob",
-					"!**/.git/**",
-				},
+				vimgrep_arguments = vimgrep_arguments,
+				path_display = { filename_first = true },
+				file_ignore_patterns = file_ignore_patterns,
 			},
 			pickers = {
-				oldfiles = {
-					hidden = true,
-					cwd_only = true,
-					path_display = { "truncate" },
-				},
 				find_files = {
-					hidden = true,
-					cwd_only = true,
-					path_display = { "truncate" },
+					find_command = rg_find_files,
 				},
-				lsp_references = {
-					show_line = false,
+				oldfiles = {
+					cwd_only = true,
 				},
 			},
 			extensions = {
 				fzf = {},
 				live_grep_args = {
-					auto_quoting = false,
 					mappings = {
 						i = {
 							["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
@@ -72,25 +80,15 @@ return {
 							-- ["<C-space>"] = lga_actions.to_fuzzy_refine,
 						},
 					},
-					path_display = {
-						filename_first = {
-							reverse_directories = true,
-						},
-					},
+					auto_quoting = false,
+					cwd_only = true,
+					layout_config = layout_config,
+					layout_strategy = "horizontal",
+					dynamic_preview_title = true,
+					file_ignore_patterns = file_ignore_patterns,
+					path_display = { filename_first = true },
 					show_line = false,
-					vimgrep_arguments = {
-						"rg",
-						"--color=never",
-						"--no-heading",
-						"--hidden",
-						"--with-filename",
-						"--line-number",
-						"--column",
-						"--smart-case",
-						"--trim",
-						"--glob",
-						"!**/.git/**",
-					},
+					vimgrep_arguments = vimgrep_arguments,
 				},
 			},
 		})

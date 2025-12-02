@@ -32,8 +32,8 @@ return {
 				opts.desc = "Show LSP definitions"
 				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
-				-- opts.desc = "Show LSP implementations"
-				-- keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+				opts.desc = "Show LSP implementations"
+				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
 				opts.desc = "Show LSP type definitions"
 				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
@@ -52,6 +52,15 @@ return {
 				})
 				vim.lsp.enable(server_name)
 			end,
+			["ts_ls"] = function()
+				vim.lsp.config("ts_ls", {
+					capabilities = capabilities,
+					cmd = { "typescript-language-server", "--stdio" },
+					filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				})
+				vim.lsp.enable("ts_ls")
+			end,
+
 			["lua_ls"] = function()
 				vim.lsp.config("lua_ls", {
 					capabilities = capabilities,

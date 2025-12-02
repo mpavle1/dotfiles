@@ -9,3 +9,14 @@
 	defaultRemote = origin
 [push]
 	default = current
+
+[merge]
+	tool = nvimdiff
+	keepBackup = false
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE" 
+	keepBackup = false
+
+[include]
+	path = ~/.gitconfig.local

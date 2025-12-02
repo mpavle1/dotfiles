@@ -55,3 +55,5 @@ vim.g.netrw_altv = 0
 -- displays white spaces before the first character in a row
 -- vim.opt.list = true
 -- vim.opt.listchars = { tab = ">-", trail = "·", lead = "·" }
+
+-- vim.o.statusline = "%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c"
