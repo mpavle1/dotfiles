@@ -7,8 +7,6 @@ return {
 		{ "folke/lazydev.nvim", ft = "lua" },
 	},
 	config = function()
-		local mason_lspconfig = require("mason-lspconfig")
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
@@ -20,11 +18,8 @@ return {
 				opts.desc = "Smart rename"
 				vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 
-				opts.desc = "Show documentation for what is under cursor"
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-				opts.desc = "Helps finish the function"
-				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+				-- opts.desc = "Helps finish the function"
+				-- vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
 
 				opts.desc = "Show LSP references"
 				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
@@ -43,40 +38,33 @@ return {
 			end,
 		})
 
+		local mason_lspconfig = require("mason-lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		mason_lspconfig.setup_handlers({
-			function(server_name)
-				vim.lsp.config(server_name, {
-					capabilities = capabilities,
-				})
-				vim.lsp.enable(server_name)
-			end,
-			["ts_ls"] = function()
-				vim.lsp.config("ts_ls", {
-					capabilities = capabilities,
-					cmd = { "typescript-language-server", "--stdio" },
-					filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-				})
-				vim.lsp.enable("ts_ls")
-			end,
-
-			["lua_ls"] = function()
-				vim.lsp.config("lua_ls", {
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				})
-				vim.lsp.enable("lua_ls")
-			end,
+		vim.lsp.config("*", {
+			capabilities = capabilities,
 		})
+
+		vim.lsp.config("ts_ls", {
+			capabilities = capabilities,
+			cmd = { "typescript-language-server", "--stdio" },
+			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+		})
+
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					completion = {
+						callSnippet = "Replace",
+					},
+				},
+			},
+		})
+
+		mason_lspconfig.setup()
 	end,
 }

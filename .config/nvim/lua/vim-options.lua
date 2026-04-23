@@ -56,4 +56,5 @@ vim.g.netrw_altv = 0
 -- vim.opt.list = true
 -- vim.opt.listchars = { tab = ">-", trail = "·", lead = "·" }
 
--- vim.o.statusline = "%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c"
+-- status line
+-- vim.o.statusline = "%f %m %= %{get(b:,'gitsigns_head','')} %{%v:lua.get_git_status()%} < %p%% < %l,%c"

@@ -54,6 +54,12 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Smart yoink" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Smart yoink" })
 
+vim.keymap.set("n", "<leader>cp", function()
+	local path = vim.fn.expand("%:.") -- relative to cwd
+	vim.fn.setreg("+", path)
+	print("Copied: " .. path)
+end, { desc = "Copy relative file path" })
+
 -- Toggle Quickfix List
 vim.keymap.set("n", "<leader>q", function()
 	local is_open = false

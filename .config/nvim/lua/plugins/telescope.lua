@@ -23,6 +23,7 @@ return {
 			"dist/.*",
 			"public/.*%.js",
 			-- ".next/.*%.js",
+			".git/",
 		}
 
 		local vimgrep_arguments = {
@@ -62,6 +63,7 @@ return {
 			pickers = {
 				find_files = {
 					find_command = rg_find_files,
+					-- hidden = true,
 				},
 				oldfiles = {
 					cwd_only = true,
@@ -77,7 +79,7 @@ return {
 								postfix = " -FS --iglob **",
 							}),
 							-- freeze the current list and start a fuzzy search in the frozen list
-							-- ["<C-space>"] = lga_actions.to_fuzzy_refine,
+							-- ["<C-space>"] = require("telescope-live-grep-args.actions").to_fuzzy_refine,
 						},
 					},
 					auto_quoting = false,

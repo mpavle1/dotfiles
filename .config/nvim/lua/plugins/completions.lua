@@ -11,7 +11,6 @@ return {
 			local cmp = require("cmp")
 
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 			local has_copilot, copilot_suggestion = pcall(require, "copilot.suggestion")
 
@@ -24,8 +23,6 @@ return {
 					documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
-					-- ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-					-- ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 
 					["<Tab>"] = cmp.mapping(function(fallback)

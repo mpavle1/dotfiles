@@ -1,18 +1,4 @@
 require("vim-options")
+require("autocmd")
 require("keymaps")
 require("lazy-init")
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
-	callback = function()
-		vim.hl.on_yank({
-			higroup = "IncSearch",
-			timeout = 40,
-		})
-	end,
-})
-
--- vim.api.nvim_create_autocmd("FileType", {
--- 	pattern = "help",
--- 	command = "wincmd L",
--- })

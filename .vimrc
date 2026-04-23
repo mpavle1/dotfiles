@@ -29,13 +29,17 @@ set updatetime=50
 set cursorline
 set mouse=a
 
+" Status line
+set laststatus=2
+set statusline=%f\ %m\ %=%p%%\ <\ %l,%c
+
 " Spell check language
 set spelllang=en
 
 " Color and terminal settings
 set termguicolors
 set smoothscroll
-colorscheme elflord
+colorscheme torte
 
 " Search settings
 set nohlsearch
@@ -52,7 +56,7 @@ let maplocalleader="\\"
 set number
 set relativenumber
 
-" netrw settings
+" Netrw settings
 let g:netrw_browse_split = 0
 let g:netrw_banner = 0
 let g:netrw_altv = 0
@@ -76,3 +80,9 @@ nnoremap <leader>Y "+Y
 
 " Open netrw (:Ex) with <leader>-
 nnoremap <leader>- :Ex<CR>
+
+" Copy relative file patch into system clipboard
+nnoremap <leader>cp :let @+ = fnamemodify(expand('%'), ':.') \| echo "Copied: " . @+<CR>
+
+" Color scheme, radi ali neke komande kao O su sporije
+" source <sfile>:h/colorscheme.vim
