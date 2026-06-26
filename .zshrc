@@ -21,6 +21,8 @@ export MANPAGER="nvim +Man!"
 
 alias ll="ls -lhap"
 alias tmux="tmux -u"
+# Start tmux in root with the session named by the user. This helps with the tmux-sessionizer integration
+alias tmux-new="tmux new -s $USER -c ~"
 
 # Load nvm (Node Version Manager) if it's installed, allowing you to manage multiple Node.js versions.
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

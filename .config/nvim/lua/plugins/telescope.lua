@@ -13,25 +13,29 @@ return {
 	config = function()
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
+		local lga_actions = require("telescope-live-grep-args.actions")
 
 		local layout_config = {
 			height = 100,
 			width = 400,
 		}
-		local file_ignore_patterns = {
-			"node_modules/.*",
-			"dist/.*",
-			"public/.*%.js",
-			-- ".next/.*%.js",
-			".git/",
-		}
 
-		local vimgrep_arguments = {
-			"rg",
-			"--ignore",
-			"--hidden",
+		local ignore_globs = {
 			"-g",
 			"!.git",
+			"-g",
+			"!.next",
+			"-g",
+			"!node_modules",
+			"-g",
+			"!dist",
+			"-g",
+			"!public/*.js",
+		}
+
+		local vimgrep_arguments = vim.list_extend({
+			"rg",
+			"--hidden",
 			"--color=never",
 			"--no-heading",
 			"--with-filename",
@@ -39,31 +43,25 @@ return {
 			"--column",
 			"--smart-case",
 			"--trim",
-		}
+		}, ignore_globs)
 
-		local rg_find_files = {
+		local rg_find_files = vim.list_extend({
 			"rg",
-			"--ignore",
 			"--hidden",
-			"-g",
-			"!.git",
 			"--files",
-		}
+		}, ignore_globs)
 
 		telescope.setup({
 			defaults = {
-				cwd_only = true,
 				layout_config = layout_config,
 				layout_strategy = "horizontal",
 				dynamic_preview_title = true,
 				vimgrep_arguments = vimgrep_arguments,
 				path_display = { filename_first = true },
-				file_ignore_patterns = file_ignore_patterns,
 			},
 			pickers = {
 				find_files = {
 					find_command = rg_find_files,
-					-- hidden = true,
 				},
 				oldfiles = {
 					cwd_only = true,
@@ -72,25 +70,14 @@ return {
 			extensions = {
 				fzf = {},
 				live_grep_args = {
+					auto_quoting = false,
+					show_line = false,
 					mappings = {
 						i = {
-							["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-							["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({
-								postfix = " -FS --iglob **",
-							}),
-							-- freeze the current list and start a fuzzy search in the frozen list
-							-- ["<C-space>"] = require("telescope-live-grep-args.actions").to_fuzzy_refine,
+							["<C-k>"] = lga_actions.quote_prompt(),
+							["<C-i>"] = lga_actions.quote_prompt({ postfix = " -F --iglob " }),
 						},
 					},
-					auto_quoting = false,
-					cwd_only = true,
-					layout_config = layout_config,
-					layout_strategy = "horizontal",
-					dynamic_preview_title = true,
-					file_ignore_patterns = file_ignore_patterns,
-					path_display = { filename_first = true },
-					show_line = false,
-					vimgrep_arguments = vimgrep_arguments,
 				},
 			},
 		})
@@ -100,9 +87,9 @@ return {
 
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope find recent files" })
-		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope live git files" })
-		vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Telescope live git diff files" })
-		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix files" })
+		vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Telescope git branches" })
+		vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Telescope git diff files" })
+		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix" })
 		vim.keymap.set("n", "<leader>fp", builtin.resume, { desc = "Telescope resume last search" })
 		vim.keymap.set("n", "<leader>fw", builtin.lsp_document_symbols, { desc = "Telescope document symbols" })
 		vim.keymap.set(
@@ -115,13 +102,13 @@ return {
 			"n",
 			"<leader>fs",
 			"<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()<CR>",
-			{ desc = "Telescope live grep under cursor" }
+			{ desc = "Telescope grep word under cursor" }
 		)
 		vim.keymap.set(
 			"v",
 			"<leader>fs",
 			"<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
-			{ desc = "Telescope live grep visual selection" }
+			{ desc = "Telescope grep visual selection" }
 		)
 	end,
 }

@@ -38,6 +38,13 @@ vim.keymap.set(
 	{ desc = "Replace string in buffer" }
 )
 
+vim.keymap.set("n", "<leader>cd", function()
+	local cmd = ":cdo  | update | bdelete" -- auto update and delete the buffer in order not to hit the limit
+	local lefts = string.rep("<Left>", 19)
+	local keys = vim.api.nvim_replace_termcodes(cmd .. lefts, true, false, true)
+	vim.api.nvim_feedkeys(keys, "n", false)
+end, { desc = "Quickfix cdo with auto-cleanup" })
+
 -- Better indenting
 vim.api.nvim_set_keymap("v", "<", "<gv", { silent = true })
 vim.api.nvim_set_keymap("v", ">", ">gv", { silent = true })
