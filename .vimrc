@@ -39,7 +39,7 @@ set spelllang=en
 " Color and terminal settings
 set termguicolors
 set smoothscroll
-colorscheme torte
+colorscheme custom
 
 " Search settings
 set nohlsearch
