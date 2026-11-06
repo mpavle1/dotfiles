@@ -3,27 +3,35 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local conform = require("conform")
+		local js_tools = require("js-tools")
+
+		local function js_formatters(bufnr)
+			local formatters = js_tools.linters(bufnr)
+			table.insert(formatters, js_tools.formatter(bufnr))
+			return formatters
+		end
+
+		local function other_formatters(bufnr)
+			return { js_tools.formatter(bufnr) }
+		end
 
 		conform.setup({
-			-- formatters = {
-			-- 	eslint_d = {
-			-- 		command = "eslint_d",
-			-- 		args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
-			-- 		stdin = true,
-			-- 	},
-			-- },
 			formatters_by_ft = {
-				javascript = { "eslint_d", "prettier" },
-				typescript = { "eslint_d", "prettier" },
-				javascriptreact = { "eslint_d", "prettier" },
-				typescriptreact = { "eslint_d", "prettier" },
-				css = { "prettier" },
-				html = { "prettier" },
-				json = { "prettier" },
-				yaml = { "prettier" },
-				markdown = { "prettier" },
+				javascript = js_formatters,
+				typescript = js_formatters,
+				javascriptreact = js_formatters,
+				typescriptreact = js_formatters,
+				css = other_formatters,
+				html = other_formatters,
+				json = other_formatters,
+				yaml = other_formatters,
+				markdown = other_formatters,
 				lua = { "stylua" },
 				php = {},
+			},
+			formatters = {
+				oxfmt = { command = "oxfmt" },
+				oxlint = { command = "oxlint" },
 			},
 			format_on_save = function(bufnr)
 				-- Disable formatting on save for php files
@@ -32,7 +40,7 @@ return {
 				end
 
 				return {
-					lsp_fallback = true,
+					lsp_format = "fallback",
 					async = false,
 					timeout_ms = 1000,
 				}
@@ -41,7 +49,7 @@ return {
 
 		vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 			conform.format({
-				lsp_fallback = true,
+				lsp_format = "fallback",
 				async = false,
 				timeout_ms = 1000,
 			})

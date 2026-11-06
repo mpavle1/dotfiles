@@ -1,30 +1,17 @@
--- Navigate through error diagnostics
-vim.api.nvim_set_keymap(
-	"n",
-	"]e",
-	"<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>",
-	{ desc = "Next Error" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"[e",
-	"<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>",
-	{ desc = "Prev Error" }
-)
+local diagnostic_jumps = {
+	{ key = "e", severity = vim.diagnostic.severity.ERROR, label = "Error" },
+	{ key = "w", severity = vim.diagnostic.severity.WARN, label = "Warning" },
+}
 
--- Navigate through warning diagnostics
-vim.api.nvim_set_keymap(
-	"n",
-	"]w",
-	"<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.WARN})<CR>",
-	{ desc = "Next Warning" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"[w",
-	"<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.WARN})<CR>",
-	{ desc = "Prev Warning" }
-)
+for _, jump in ipairs(diagnostic_jumps) do
+	vim.keymap.set("n", "]" .. jump.key, function()
+		vim.diagnostic.jump({ count = 1, severity = jump.severity, float = true })
+	end, { desc = "Next " .. jump.label })
+
+	vim.keymap.set("n", "[" .. jump.key, function()
+		vim.diagnostic.jump({ count = -1, severity = jump.severity, float = true })
+	end, { desc = "Prev " .. jump.label })
+end
 
 -- Shift visual selected line
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -133,7 +120,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "qf",
 	callback = function()
 		-- Do not show quickfix in buffer lists.
-		vim.api.nvim_buf_set_option(0, "buflisted", false)
+		vim.bo[0].buflisted = false
 
 		-- Escape closes quickfix window.
 		vim.keymap.set("n", "<ESC>", "<CMD>cclose<CR>", { buffer = true, remap = false, silent = true })

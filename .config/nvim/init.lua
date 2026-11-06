@@ -1,4 +1,5 @@
 require("vim-options")
+require("statusline")
 require("autocmd")
 require("keymaps")
 require("lazy-init")

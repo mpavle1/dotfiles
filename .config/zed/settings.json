@@ -1,0 +1,115 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "edit_predictions": {
+    "provider": "none"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "theme": "Kanagawa Wave - No Italics",
+  // Match nvim, which runs `highlight Normal guibg=black` on top of kanagawa-wave
+  "theme_overrides": {
+    "Kanagawa Wave - No Italics": {
+      "background": "#000000",
+      "surface.background": "#000000",
+      "panel.background": "#000000",
+      "title_bar.background": "#000000",
+      "title_bar.inactive_background": "#000000",
+      "status_bar.background": "#000000",
+      "toolbar.background": "#000000",
+      "tab_bar.background": "#000000",
+      "tab.active_background": "#000000",
+      "editor.background": "#000000",
+      "editor.gutter.background": "#000000",
+      "editor.subheader.background": "#000000",
+      "scrollbar.track.background": "#000000",
+      "terminal.background": "#000000"
+    }
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "languages": {
+    "PHP": {
+      "language_servers": ["intelephense"],
+      "format_on_save": "off"
+    },
+    "TSX": {
+      "language_servers": ["oxlint", "oxfmt", "..."],
+      "format_on_save": "on",
+      "formatter": [
+        { "language_server": { "name": "oxfmt" } },
+        { "code_action": "source.fixAll.oxc" }
+      ]
+    },
+    "TypeScript": {
+      "language_servers": ["oxlint", "oxfmt", "..."],
+      "format_on_save": "on",
+      "formatter": [
+        { "language_server": { "name": "oxfmt" } },
+        { "code_action": "source.fixAll.oxc" }
+      ]
+    },
+    "JavaScript": {
+      "language_servers": ["oxlint", "oxfmt", "..."]
+    }
+  },
+  "lsp": {
+    "oxlint": {
+      "binary": {
+        "path": "oxlint",
+        "arguments": ["--lsp"]
+      },
+      "initialization_options": {
+        "settings": {
+          "run": "onType"
+        }
+      }
+    },
+    "oxfmt": {
+      "binary": {
+        "path": "oxfmt",
+        "arguments": ["--lsp"]
+      }
+    }
+  },
+  "git": {
+    "inline_blame": { "enabled": false }
+  },
+  "project_panel": {
+    "dock": "left",
+    "auto_fold_dirs": false
+  },
+  "vim": {
+    "use_system_clipboard": "always"
+  },
+  "diagnostics": {
+    "include_warnings": true,
+    "inline": {
+      "enabled": true,
+      "max_severity": null
+    }
+  }
+}

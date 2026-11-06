@@ -5,13 +5,11 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("kanagawa").setup({
-				theme = "wave",
-			})
-
-			vim.cmd("colorscheme kanagawa")
-
+			vim.cmd("colorscheme kanagawa-wave")
 			vim.cmd("highlight Normal guibg=black")
+
+			-- vim.cmd("colorscheme kanagawa-lotus")
+			-- vim.cmd("highlight Normal guibg=white")
 		end,
 	},
 }

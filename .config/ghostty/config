@@ -1,7 +1,11 @@
-theme = iTerm2 Tango Dark
+theme = light:iTerm2 Tango Light,dark:iTerm2 Tango Dark
+window-theme = auto
 
 font-family = "UbuntuSansMono NFM"
 font-style = Regular
-font-size = 18
+font-size = 21
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
 
 keybind = "ctrl+enter=unbind"

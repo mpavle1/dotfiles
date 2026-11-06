@@ -65,6 +65,7 @@ return {
 				},
 				oldfiles = {
 					cwd_only = true,
+					previewer = false,
 				},
 			},
 			extensions = {
@@ -92,6 +93,8 @@ return {
 		vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix" })
 		vim.keymap.set("n", "<leader>fp", builtin.resume, { desc = "Telescope resume last search" })
 		vim.keymap.set("n", "<leader>fw", builtin.lsp_document_symbols, { desc = "Telescope document symbols" })
+		vim.keymap.set({ "n", "x" }, "<leader>fl", builtin.git_bcommits_range, { desc = "Git history of line(s)" })
+
 		vim.keymap.set(
 			"n",
 			"<leader>f/",

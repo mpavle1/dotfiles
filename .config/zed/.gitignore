@@ -1,0 +1,5 @@
+# Only track hand-edited config. Everything else is data Zed writes itself.
+*
+!.gitignore
+!settings.json
+!keymap.json

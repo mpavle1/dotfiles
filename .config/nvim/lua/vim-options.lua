@@ -1,8 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 vim.opt.updatetime = 50
 
@@ -38,23 +38,8 @@ vim.opt.cursorline = true
 vim.opt.colorcolumn = "120"
 vim.opt.winborder = "single" -- only in Neovim
 
+vim.diagnostic.config({ severity_sort = true })
+
 -- Split windows
 vim.o.splitright = true
 vim.o.splitbelow = true
-
--- Spell checking
--- vim.opt.spell = true
--- vim.opt.spelllang = { "en" }
-
--- Netrw settings
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_altv = 0
--- vim.g.netrw_winsize = 25
-
--- displays white spaces before the first character in a row
--- vim.opt.list = true
--- vim.opt.listchars = { tab = ">-", trail = "·", lead = "·" }
-
--- status line
--- vim.o.statusline = "%f %m %= %{get(b:,'gitsigns_head','')} %{%v:lua.get_git_status()%} < %p%% < %l,%c"

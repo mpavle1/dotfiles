@@ -1,6 +1,6 @@
 ## Requirements
 
-Neovim `0.11+`
+Neovim `0.12+`
 
 ## Linux
 
@@ -8,6 +8,7 @@ Neovim `0.11+`
 sudo apt install ripgrep
 sudo apt install fzf
 ```
+
 ## Macos
 
 ```bash

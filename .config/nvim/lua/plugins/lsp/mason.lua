@@ -26,6 +26,9 @@ return {
 				"cssls",
 				"lua_ls",
 			},
+			automatic_enable = {
+				exclude = { "stylua" },
+			},
 		})
 
 		mason_tool_installer.setup({

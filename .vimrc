@@ -84,5 +84,3 @@ nnoremap <leader>- :Ex<CR>
 " Copy relative file patch into system clipboard
 nnoremap <leader>cp :let @+ = fnamemodify(expand('%'), ':.') \| echo "Copied: " . @+<CR>
 
-" Color scheme, radi ali neke komande kao O su sporije
-" source <sfile>:h/colorscheme.vim
